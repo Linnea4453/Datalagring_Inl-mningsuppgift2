@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="Uwp.CustomerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Uwp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="CustomerCollection" Source="{x:Bind ViewModel.People}"/>
+    </Page.Resources>  
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Skapa ett nytt ärende" FontSize="28" Margin="0,0,0,20"/>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Personuppgifter" FontSize="20"/>
+            
+            <StackPanel Grid.Row="1" DataContext="{Binding Source={StaticResource CustomerCollection}}">
+                <TextBox x:Name="TbFirstName" PlaceholderText="First Name" Text="{Binding FirstName}" />
+                <TextBox x:Name="TbLastName" PlaceholderText="Last Name" Text="{Binding LastName}"/>
+                <TextBox x:Name="TbEmail" PlaceholderText="Email" Text="{Binding Email}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,20">
+                <Button x:Name="CreateCustomer" Content="Create Customer" Click="CreateCustomer_Click" />
+            </StackPanel>
+
+            <ComboBox Grid.Row="2" x:Name="cmbCustomers" PlaceholderText="Select a Customer" Margin="0,40,0,15" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Ärendeuppgifter" FontSize="20"/>
+            <StackPanel Grid.Row="3">
+                <TextBox PlaceholderText="Ärendets Title"/>
+                <TextBox PlaceholderText="Beskrivning av dit problem"/>
+                <TextBox PlaceholderText="Email"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,20">
+                <Button x:Name="CreateCases" Content="Create Cases" Click="CreateCases_Click" Margin="20"/>
+            </StackPanel>
+
+           
+        </Grid>
+        
+
+    </Grid>
+</Page>
