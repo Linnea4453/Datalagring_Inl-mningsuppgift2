@@ -50,8 +50,8 @@ namespace ClassLibrary.Data
                 cmd.Parameters.AddWithValue("@Email", customer.Email);
                 cmd.Parameters.AddWithValue("@Created", DateTime.Now);
 
-                //await cmd.ExecuteNonQueryAsync(); //Utan svar tillbaka
-                await cmd.ExecuteReaderAsync();
+                await cmd.ExecuteNonQueryAsync(); //Utan svar tillbaka
+               // await cmd.ExecuteReaderAsync();
                 cmd.CommandText = "SELECT last_insert_rowid()";
                 id = (long)await cmd.ExecuteScalarAsync();        //Får tillbaka ett värde
 
@@ -111,7 +111,7 @@ namespace ClassLibrary.Data
             {
                 db.Open();
 
-                var query = "SELECT * FROM Customers";
+                var query = "SELECT * FROM Customer";
                 var cmd = new SqliteCommand(query, db);
 
                 var result = await cmd.ExecuteReaderAsync();
@@ -186,17 +186,16 @@ namespace ClassLibrary.Data
         {
             long customerid = 0;
                 using (var db = new SqliteConnection(_dbPath))
-            {
-                db.Open();
+                    {
+                     db.Open();
 
-                var query = "SELECT Id FROM Customer WHERE FirstName = @FirstName";
-                var cmd = new SqliteCommand(query, db);
+                     var query = "SELECT Id FROM Customer WHERE FirstName = @FirstName";
+                    var cmd = new SqliteCommand(query, db);
 
-                cmd.Parameters.AddWithValue("@FirstName", name);
-                customerid = (long)await cmd.ExecuteScalarAsync();
-                db.Close();
-            
-            }
+                    cmd.Parameters.AddWithValue("@FirstName", name);
+                    customerid = (long)await cmd.ExecuteScalarAsync();
+                    db.Close();
+                      }
             return customerid;
         }
 

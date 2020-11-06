@@ -30,50 +30,41 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Personuppgifter" FontSize="20"/>
-            
+
             <StackPanel Grid.Row="1">
-                <TextBox x:Name="TbFirstName" PlaceholderText="First Name" Text="{x:Bind}" />
-                <TextBox x:Name="TbLastName" PlaceholderText="Last Name" Text="{Binding LastName}"/>
-                <TextBox x:Name="TbEmail" PlaceholderText="Email" Text="{Binding Email}"/>
+                <TextBox x:Name="TbFirstName" PlaceholderText="First Name"  />
+                <TextBox x:Name="TbLastName" PlaceholderText="Last Name" />
+                <TextBox x:Name="TbEmail" PlaceholderText="Email"/>
             </StackPanel>
-            
+
             <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,20">
                 <Button x:Name="CreateCustomer" Content="Create Customer" Click="CreateCustomer_Click" />
             </StackPanel>
-            
+
             <ComboBox Grid.Row="2" x:Name="cmbCustomers" PlaceholderText="Select a Customer" Margin="0,40,0,15" />
             <StackPanel Grid.Row="2" Grid.Column="2">
                 <ListView  x:Name="lvCreatedcustomers">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:Customer">
                             <StackPanel>
-                                <TextBlock Text="{x:Bind FirstName}" />
-                                <TextBlock Text="{x:Bind LastName}" />
-                                <TextBlock Text="{x:Bind Email}" />
+                                <TextBlock Text="{Binding}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding}" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
-            
-            
-            
-            
+
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Ärendeuppgifter" FontSize="20"/>
             <StackPanel Grid.Row="3">
-                <TextBox PlaceholderText="Ärendets Title"/>
-                <TextBox PlaceholderText="Beskrivning av dit problem"/>
-                <TextBox PlaceholderText="Email"/>
+                <TextBox x:Name="TbTitle" PlaceholderText="Ärendets Title"/>
+                <TextBox x:Name="TbDescription" PlaceholderText="Beskrivning av dit problem"/>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,20">
                 <Button x:Name="CreateCases" Content="Create Cases" Click="CreateCases_Click" Margin="20"/>
             </StackPanel>
-
-           
         </Grid>
-        
-
     </Grid>
 </Page>

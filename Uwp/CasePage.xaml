@@ -28,7 +28,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel>
-                <ComboBox x:Name="cmbCustomers" PlaceholderText="Select a Customer" Margin="0,20" />
+                <ComboBox x:Name="cmbCasesByTitle" PlaceholderText="Select Case By Title" Margin="0,20" />
                 <ComboBox x:Name="cmbStatus" PlaceholderText="Select status" Margin="0,20" />
 
                 <StackPanel>
@@ -42,8 +42,8 @@
                                         <TextBlock Text="{ x:Bind Created }" Margin="50,0,0,0" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{ x:Bind CustomerId }" />
-                                        <TextBlock Text="{ x:Bind Status }" Margin="10,0,0,0" />
+                                        <TextBlock Text="{ x:Bind Customer.Id }" />
+                                        <TextBlock Text="{ x:Bind Customer.DisplayName }" Margin="10,0,0,0" />
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

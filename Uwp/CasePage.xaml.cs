@@ -31,12 +31,12 @@ namespace Uwp
         public CasePage()
         {
             this.InitializeComponent();
-           
+            LoadCasesAsync().GetAwaiter();
         }
 
         private async Task LoadCasesAsync() //Hämtar ärendena
         {
-            cases = await SqliteContext.GetCases();
+            cmbCasesByTitle.ItemsSource = await SqliteContext.GetCases();
             LoadActiveCases();
             LoadClosedCases();
         }
@@ -44,7 +44,11 @@ namespace Uwp
 
         private void LoadActiveCases()       //Lägger Aktivaärendena i lista 
         {
-            lvActiveCases.ItemsSource = cases.Where(i => i.Status != "closed").ToList();
+            lvActiveCases.ItemsSource = cases
+                .Where(i => i.Status != "closed")
+                //.OrderByDescending(i => i.Created)
+               // .Take(SettingsContext.GetMaxItemsCount)
+                .ToList();
         }
 
         private void LoadClosedCases()       //Lägger Stängdaärendena i lista 

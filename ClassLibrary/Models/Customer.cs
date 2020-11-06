@@ -28,6 +28,9 @@ namespace ClassLibrary.Models
         public string LastName { get; set; }
         public string Email { get; set; } 
         public DateTime Created { get; set; }
+
+        public string DisplayName => $"{FirstName} {LastName}";
+
     }
 
     //public class CustomerViewModel

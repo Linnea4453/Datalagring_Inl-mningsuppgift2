@@ -29,30 +29,14 @@ namespace Uwp
     public sealed partial class MainPage : Page
     {
 
-        //private IEnumerable<Case> cases { get; set; }
-
+       
         public MainPage()
         {
             this.InitializeComponent();
-            //LoadCasesAsync().GetAwaiter();
+           
         }
 
-        //private async Task LoadCasesAsync() //Hämtar ärendena
-        //{
-        //    cases = await SqliteContext.GetCases();
-        //    LoadActiveCasesAsync().GetAwaiter();
-        //    LoadClosedCasesAsync().GetAwaiter();
-        //}
-
-        //private async Task LoadActiveCasesAsync()       //Lägger Aktivaärendena i lista 
-        //{
-        //    lvActiveCases.ItemsSource = cases.Where(i => i.Status != "closed").ToList();
-        //}
-
-        //private async Task LoadClosedCasesAsync()       //Lägger Stängdaärendena i lista 
-        //{
-        //    lvClosedCases.ItemsSource = cases.Where(i => i.Status == "closed").ToList();
-        //}
+     
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {

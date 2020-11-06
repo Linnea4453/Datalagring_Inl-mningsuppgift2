@@ -35,8 +35,8 @@ namespace Uwp
         {
             this.InitializeComponent();
            // ViewModel = new CustomerViewModel();
-            LoadCustomersAsync().GetAwaiter();
-            LoadCasesAsync().GetAwaiter();
+            //LoadCustomersAsync().GetAwaiter();
+            //LoadCasesAsync().GetAwaiter();
         }
            private async Task LoadCustomersAsync()
         {
@@ -46,21 +46,23 @@ namespace Uwp
         private async Task LoadCasesAsync()
         {
             cases = await SqliteContext.GetCases();
-            //LoadActiveCases();
-            //LoadClosedCses();
+               //LoadActiveCases();
+               //LoadClosedCses();
         }
 
 
         private async void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
-      
-            _customerId = await SqliteContext.CreateCustomerAsync(new Customer 
-            {FirstName = TbFirstName.Text,
-                LastName = TbLastName.Text, 
-                Email = TbEmail.Text, 
-                Created = DateTime.Now  });
+            _customerId = await SqliteContext.CreateCustomerAsync(new Customer
+            {
                 
-           await LoadCustomersAsync();
+                FirstName = TbFirstName.Text,
+                LastName = TbLastName.Text,
+                Email = TbEmail.Text,
+                Created = DateTime.Now
+            });
+
+            await LoadCustomersAsync();
         }
 
         private async void CreateCases_Click(object sender, RoutedEventArgs e)
@@ -68,8 +70,8 @@ namespace Uwp
             await SqliteContext.CreateCaseAsync(
                 new Case
                 {
-                    Title = "Ett ärende",
-                    Description = "Det här är mitt problem",
+                    Title = TbTitle.Text,
+                    Description = TbDescription.Text,
                     CustomerId = await SqliteContext.GetCustomerIdByName(lvCreatedcustomers.SelectedItem.ToString())
                 });
 
