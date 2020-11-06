@@ -30,14 +30,14 @@ namespace ClassLibrary.Models
         public DateTime Created { get; set; }
     }
 
-    public class CustomerViewModel
-    { 
-        public ObservableCollection<Customer> People { get; set; }
-        public CustomerViewModel()
-        {
-            People = new ObservableCollection<Customer>();
+    //public class CustomerViewModel
+    //{ 
+    //    public ObservableCollection<Customer> People { get; set; }
+    //    public CustomerViewModel()
+    //    {
+    //        People = new ObservableCollection<Customer>();
           
-        }
+    //    }
     
-    }
+    //}
 }

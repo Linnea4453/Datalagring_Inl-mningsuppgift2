@@ -51,9 +51,5 @@ namespace Uwp
         {
             lvClosedCases.ItemsSource = cases.Where(i => i.Status == "closed").ToList();
         }
-
-
-
-
     }
 }

@@ -8,6 +8,7 @@ using ClassLibrary.Data;
 using ClassLibrary.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,16 +27,20 @@ namespace Uwp
     public sealed partial class CustomerPage : Page
     {
         private IEnumerable<Case> cases { get; set; }
-        public CustomerViewModel ViewModel { get; set; }
+        private long _customerId {get; set;}
+        //public CustomerViewModel ViewModel { get; set; }
+
+
         public CustomerPage()
         {
             this.InitializeComponent();
-            ViewModel = new CustomerViewModel();
+           // ViewModel = new CustomerViewModel();
             LoadCustomersAsync().GetAwaiter();
+            LoadCasesAsync().GetAwaiter();
         }
            private async Task LoadCustomersAsync()
         {
-            cmbCustomers.ItemsSource = await SqliteContext.GetCustomerNames();
+            lvCreatedcustomers.ItemsSource = await SqliteContext.GetCustomerNames();
         }
 
         private async Task LoadCasesAsync()
@@ -48,17 +53,13 @@ namespace Uwp
 
         private async void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            await SqliteContext.CreateCustomerAsync(TbFirstName.ToString());
-            
-
-            // try {Get Customer }
-            //await SqliteContext.CreateCustomerAsync(
-            //    new Customer());
-            //    {
-            //     DataAcces
-                    
-
-            //    }                     
+      
+            _customerId = await SqliteContext.CreateCustomerAsync(new Customer 
+            {FirstName = TbFirstName.Text,
+                LastName = TbLastName.Text, 
+                Email = TbEmail.Text, 
+                Created = DateTime.Now  });
+                
            await LoadCustomersAsync();
         }
 
@@ -69,7 +70,7 @@ namespace Uwp
                 {
                     Title = "Ett ärende",
                     Description = "Det här är mitt problem",
-                    CustomerId = await SqliteContext.GetCustomerIdByName(cmbCustomers.SelectedItem.ToString())
+                    CustomerId = await SqliteContext.GetCustomerIdByName(lvCreatedcustomers.SelectedItem.ToString())
                 });
 
             await LoadCasesAsync();
