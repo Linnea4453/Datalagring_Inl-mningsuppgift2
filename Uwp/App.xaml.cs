@@ -31,6 +31,7 @@ namespace Uwp
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
+            ClassLibrary.Data.SettingsContext.GetSettingsInformation();
             ClassLibrary.Data.SqliteContext.UseSQLite();
         }
 

@@ -15,7 +15,7 @@ namespace ClassLibrary.Data
     {
         #region Configuration and Properties
         //Funktion för att skapa hela strukturen
-        private static string _dbPath { get; set; }
+        public static string _dbPath { get; set; }
         public static async void UseSQLite(string databaseName = "sqlite.db")
         {
             await ApplicationData.Current.LocalFolder.CreateFileAsync(databaseName, CreationCollisionOption.OpenIfExists);
@@ -124,8 +124,8 @@ namespace ClassLibrary.Data
                     }
                 }
                 db.Close();
-                return customer;
             }
+            return customer;
         } //Lista alla kunder i en lista
 
         public static async Task<IEnumerable<string>> GetCustomerNames() // Hämta  Namn
@@ -136,7 +136,7 @@ namespace ClassLibrary.Data
             {
                 db.Open();
 
-                var query = "SELECT FirstName FROM Customer";
+                var query = "SELECT FirstName, LastName FROM Customer";
                 var cmd = new SqliteCommand(query, db);
 
                 var result = await cmd.ExecuteReaderAsync();
@@ -177,9 +177,9 @@ namespace ClassLibrary.Data
                     }
                 }
                 db.Close();
-                return customer;
+             
             }
-
+            return customer;
         }
 
         public static async Task<long> GetCustomerIdByName(string name)
@@ -187,15 +187,16 @@ namespace ClassLibrary.Data
             long customerid = 0;
                 using (var db = new SqliteConnection(_dbPath))
                     {
-                     db.Open();
+                         db.Open();
 
-                     var query = "SELECT Id FROM Customer WHERE FirstName = @FirstName";
-                    var cmd = new SqliteCommand(query, db);
+                         var query = "SELECT Id FROM Customer WHERE FirstName = @FirstName";
+                         var cmd = new SqliteCommand(query, db);
 
-                    cmd.Parameters.AddWithValue("@FirstName", name);
-                    customerid = (long)await cmd.ExecuteScalarAsync();
-                    db.Close();
+                         cmd.Parameters.AddWithValue("@FirstName", name);
+                         customerid = (long)await cmd.ExecuteScalarAsync();
+                         db.Close();
                       }
+
             return customerid;
         }
 
@@ -246,11 +247,9 @@ namespace ClassLibrary.Data
                         var @case = new Case(result.GetInt64(0), result.GetInt64(1), result.GetString(2), result.GetString(3), result.GetString(4), result.GetDateTime(5));
                         @case.Customer = await GetCustomerById(result.GetInt64(1));
                         @case.Comments = await GetCommentsByCaseId(result.GetInt64(0));
-
                         cases.Add(@case);
                     }
                 }
-
                 db.Close();
             }
 

@@ -8,6 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <CollectionViewSource x:Name="CaseCollection" Source="{x:Bind viewModel.CaseAllInfo}"/>
+    </Page.Resources>
 
     <Grid Margin="30">
         <Grid.RowDefinitions>
@@ -33,23 +36,33 @@
 
                 <StackPanel>
                     <TextBlock Text="Active Cases"/>
-                    <ListView Name="lvActiveCases">
+                    <ListView Name="lvActiveCases" ItemsSource="{Binding Source={StaticResource CaseCollection}}" >
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Case">
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,10,0,0" >
+                                    <StackPanel Orientation="Vertical" >
+                                        <TextBlock Text="Ärendet avser :" FontWeight="Bold" />
                                         <TextBlock Text="{x:Bind Title}" />
-                                        <TextBlock Text="{ x:Bind Created }" Margin="50,0,0,0" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{ x:Bind Customer.Id }" />
-                                        <TextBlock Text="{ x:Bind Customer.DisplayName }" Margin="10,0,0,0" />
+                                        <TextBlock Text="Namn :" FontWeight="Bold" />
+                                        <TextBlock Text="{x:Bind Customer.DisplayName}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackPanel>
+
+                <StackPanel DataContext="{Binding Source={StaticResource CaseCollection}}" Margin="0,30,0,0" >
+                    <StackPanel Orientation="Horizontal">
+                     
+                        <TextBlock Text="Kundens Namn och Kund Id" FontWeight="Bold" />
+                        <TextBlock Text="{Binding  }" />
+
+
+                    </StackPanel>
+                  
+                </StackPanel>
+
                 <StackPanel Margin="0,20">
                     <TextBlock Text="Closed Cased"/>
                     <ListView Name="lvClosedCases">

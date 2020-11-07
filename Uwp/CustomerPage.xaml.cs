@@ -27,20 +27,20 @@ namespace Uwp
     public sealed partial class CustomerPage : Page
     {
         private IEnumerable<Case> cases { get; set; }
-        private long _customerId {get; set;}
-        //public CustomerViewModel ViewModel { get; set; }
-
+       
+      
 
         public CustomerPage()
         {
             this.InitializeComponent();
            // ViewModel = new CustomerViewModel();
-            //LoadCustomersAsync().GetAwaiter();
-            //LoadCasesAsync().GetAwaiter();
+            LoadCustomersAsync().GetAwaiter();
+            LoadCasesAsync().GetAwaiter();
         }
-           private async Task LoadCustomersAsync()
+         
+        private async Task LoadCustomersAsync()
         {
-            lvCreatedcustomers.ItemsSource = await SqliteContext.GetCustomerNames();
+            cmbCustomers.ItemsSource = await SqliteContext.GetCustomerNames();
         }
 
         private async Task LoadCasesAsync()
@@ -50,16 +50,16 @@ namespace Uwp
                //LoadClosedCses();
         }
 
-
         private async void CreateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            _customerId = await SqliteContext.CreateCustomerAsync(new Customer
+
+            //TryCatch Get custoemr
+
+            await SqliteContext.CreateCustomerAsync(new Customer
             {
-                
                 FirstName = TbFirstName.Text,
                 LastName = TbLastName.Text,
                 Email = TbEmail.Text,
-                Created = DateTime.Now
             });
 
             await LoadCustomersAsync();
@@ -72,7 +72,7 @@ namespace Uwp
                 {
                     Title = TbTitle.Text,
                     Description = TbDescription.Text,
-                    CustomerId = await SqliteContext.GetCustomerIdByName(lvCreatedcustomers.SelectedItem.ToString())
+                    CustomerId = await SqliteContext.GetCustomerIdByName(cmbCustomers.SelectedItem.ToString())
                 });
 
             await LoadCasesAsync();
