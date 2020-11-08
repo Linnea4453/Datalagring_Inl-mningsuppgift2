@@ -40,7 +40,7 @@ namespace Uwp
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Navigate(typeof(CasePage));         //Här gör det att CasePage är förstasidan
+            ContentFrame.Navigate(typeof(CasePage));      //Här gör det att CasePage är förstasidan
         }
 
         private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

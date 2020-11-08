@@ -54,11 +54,8 @@
 
                 <StackPanel DataContext="{Binding Source={StaticResource CaseCollection}}" Margin="0,30,0,0" >
                     <StackPanel Orientation="Horizontal">
-                     
                         <TextBlock Text="Kundens Namn och Kund Id" FontWeight="Bold" />
-                        <TextBlock Text="{Binding  }" />
-
-
+                        <TextBlock Text="{Binding }" />
                     </StackPanel>
                   
                 </StackPanel>

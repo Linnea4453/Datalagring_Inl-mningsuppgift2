@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary.Data;
 using Microsoft.Data.Sqlite;
+using Newtonsoft.Json;
 using Windows.ApplicationModel.UserDataAccounts;
 using Windows.Storage;
 
@@ -29,11 +30,22 @@ namespace ClassLibrary.Models
             Created = created;
         }
 
+        [JsonProperty(propertyName: "id")]
         public long Id { get; set; }
+
+        [JsonProperty(propertyName: "customerid")]
         public long CustomerId { get; set; }
+
+        [JsonProperty(propertyName: "title")]
         public string Title { get; set; }
+
+        [JsonProperty(propertyName: "description")]
         public string Description { get; set; }
+
+        [JsonProperty(propertyName: "status")]
         public string Status { get; set; }
+
+        [JsonProperty(propertyName: "created")]
         public DateTime Created { get; set; }
 
         public string Summary => $"{Id}, {CustomerId}, {Description},{Status},{Created:D}";
@@ -47,37 +59,35 @@ namespace ClassLibrary.Models
     { 
 
         public ObservableCollection<Case> CaseAllInfo { get; set; }
-
+       public static string _dbPath { get; set; }
 
         public CaseViewModel()
         {
-            //CaseAllInfo = new ObservableCollection<Case>(SqliteContext.GetCases());
-            var list = new List<string>();
 
+        var cases = new List<Case>();
 
-            //    using (var db = new SqliteConnection($"Filename={_dbpath}"))
-            //    {
-            //        db.Open();
+            using (var db = new SqliteConnection(_dbPath))
+            {
+                db.Open();
 
-            //        var query = "SELECT Name FROM Persons";
-            //        var cmd = new SqliteCommand(query, db);
+                var query = "SELECT * FROM Cases";
+                var cmd = new SqliteCommand(query, db);
 
-            //        var result = cmd.ExecuteReader();
+                var result = cmd.ExecuteReader();
 
-
-            //        while (result.Read())
-            //        {
-            //            list.Add(result.GetString(0));
-            //        }
-
-            //        db.Close();
-
-            //        return list;
-            //    }
-
-
-
-
+                if (result.HasRows)
+                {
+                    while (result.Read())
+                    {
+                        var @case = new Case(result.GetInt64(0), result.GetInt64(1), result.GetString(2), result.GetString(3), result.GetString(4), result.GetDateTime(5));
+                        //@case.Add = GetCustomerById(result.GetInt64(1));
+                        //@case.Comments = GetCommentsByCaseId(result.GetInt64(0));
+                        cases.Add(@case);
+                    }
+                }
+                db.Close();
+            }
+            return;
         }
     }
 }

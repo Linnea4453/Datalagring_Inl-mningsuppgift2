@@ -39,16 +39,9 @@ namespace Uwp
             viewModel = new CaseViewModel();
         }
 
-
-
-        //public async Task PopulateCustomerViewModel(string fileName, string filePath)
+        //private async Task OrderUpdateAsync()
         //{
-        //    var settings = JsonConvert.DeserializeObject<ObservableCollection<Customer>>(await FileHeloer.GetFileContentAsync("settings.json"));
-
-        //    foreach (var setting in settings)
-        //    {
-        //        customerViewModel.Customers.Add(status);
-        //    }
+        //    await SQLiteContext.UpdateOrderAsync(new Order());
         //}
 
         //public static async Task<IEnumerable<string>> GetStatus()
@@ -73,8 +66,14 @@ namespace Uwp
         private async Task LoadStatusAsync()
         {
             cmbStatus.ItemsSource = await SettingsContext.GetStatus();
+            //await CasesUpdateAsync();
+            await LoadCasesAsync();//uppdatera list sortera ut
         }
 
+        //private async Task CasesUpdateAsync()
+        //{
+        //    await SqliteContext.UpdateCaseByStatus();
+        //}
         private async Task LoadCasesAsync() //Hämtar ärendena
         {
 
@@ -100,5 +99,5 @@ namespace Uwp
             lvClosedCases.ItemsSource = cases.Where(i => i.Status == "closed").ToList();
         }
     }
-   
+
 }

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary.Models;
 using Microsoft.Data.Sqlite;
+using Windows.ApplicationModel;
 using Windows.Networking.NetworkOperators;
 using Windows.Storage;
 
@@ -24,7 +26,7 @@ namespace ClassLibrary.Data
             using (var db = new SqliteConnection(_dbPath)) // skapar databasen
             {
                 db.Open();
-                var query = "CREATE TABLE IF NOT EXISTS Customer (Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, FirstName TEXT NOT NULL, LastName TEXT NOT NULL, Email TEXT NOT NULL, Created DATETIME NOT NULL); CREATE TABLE IF NOT EXISTS Cases (Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, CustomerId TEXT NOT NULL, Title TEXT NOT NULL, Description TEXT NOT NULL, Status TEXT NOT NULL, Created DATETIME NOT NULL, FOREIGN KEY (CustomerId) REFERENCES Customer(Id)); CREATE TABLE IF NOT EXISTS Comments (Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, CaseId TEXT NOT NULL, Description TEXT NOT NULL, Created DATETIME NOT NULL, FOREIGN KEY (CaseId) REFERENCES Cases(Id));";
+                var query = "CREATE TABLE IF NOT EXISTS Customer (Id INTEGER NOT NULL PRIM0ARY KEY AUTOINCREMENT, FirstName TEXT NOT NULL, LastName TEXT NOT NULL, Email TEXT NOT NULL, Created DATETIME NOT NULL); CREATE TABLE IF NOT EXISTS Cases (Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, CustomerId TEXT NOT NULL, Title TEXT NOT NULL, Description TEXT NOT NULL, Status TEXT NOT NULL, Created DATETIME NOT NULL, FOREIGN KEY (CustomerId) REFERENCES Customer(Id)); CREATE TABLE IF NOT EXISTS Comments (Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, CaseId TEXT NOT NULL, Description TEXT NOT NULL, Created DATETIME NOT NULL, FOREIGN KEY (CaseId) REFERENCES Cases(Id));";
                 var cmd = new SqliteCommand(query, db);
 
                 await cmd.ExecuteNonQueryAsync();
@@ -260,6 +262,52 @@ namespace ClassLibrary.Data
 
         #region Update Methods
 
-        #endregion   SKAPA!!!!
-    }
+        //public static async Task UpdateCaseByStatus()
+        //{
+        //    var  status = new List<bool>();
+        //    using (var db = new SqliteConnection(_dbPath))
+        //    {
+             
+        //        db.Open();
+
+        //        var query = "UPDATE Cases SET  Status = @Active, Status = @Closed WHERE  Status = @New";
+        //        var cmd = new SqliteCommand(query, db);
+               
+        //        ////cmd.Parameters.AddWithValue("@Active", @case.Status);
+        //        ////cmd.Parameters.AddWithValue("@Closed", @case.Status);
+
+                
+        //       var result = cmd.ExecuteScalarAsync();
+        //       cmd.CommandText = "LIMIT row_count OFFSET offset";
+
+        //        db.Close();
+        //    }
+            
+            
+        //}
+        //public static async Task<long> CreateCaseAsync(Case @case)
+        //{
+        //    long id = 0;
+        //    using (var db = new SqliteConnection(_dbPath))
+        //    {
+        //        db.Open();
+        //        var query = "INSERT INTO Cases VALUES(null,@CustomerId,@Title,@Description,@Status,@Created);";
+        //        var cmd = new SqliteCommand(query, db);
+        //        cmd.Parameters.AddWithValue("@CustomerId", @case.CustomerId);
+        //        cmd.Parameters.AddWithValue("@Title", @case.Title);
+        //        cmd.Parameters.AddWithValue("@Description", @case.Description);
+        //        cmd.Parameters.AddWithValue("@Status", "New");
+        //        cmd.Parameters.AddWithValue("@Created", DateTime.Now);
+
+        //        await cmd.ExecuteNonQueryAsync();
+
+        //        cmd.CommandText = "SELECT last_insert_rowid()";
+        //        id = (long)await cmd.ExecuteScalarAsync();        //Får tillbaka ett värde
+
+        //        db.Close();
+        //    }
+        //    return id;
+
+            #endregion   SKAPA!!!!
+        }
 }

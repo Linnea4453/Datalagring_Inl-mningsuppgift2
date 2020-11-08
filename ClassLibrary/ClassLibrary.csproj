@@ -120,12 +120,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Data\FileHelper.cs" />
     <Compile Include="Data\SettingsContext.cs" />
     <Compile Include="Data\SqliteContext.cs" />
     <Compile Include="Models\Case.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\SettingsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\ClassLibrary.rd.xml" />
   </ItemGroup>

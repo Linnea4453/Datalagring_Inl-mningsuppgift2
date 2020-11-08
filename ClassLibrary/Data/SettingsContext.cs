@@ -13,24 +13,16 @@ namespace ClassLibrary.Data
     {   
         private static Settings _settings { get; set; }
 
-        public static async void GetSettingsInformation()
+        public static async Task<string> GetSettingsInformationFromJson()
         {
-            //StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
-            //StorageFile file = await storageFolder.GetFileAsync(fileName); Använd ngn variant på detta
             var settingsFile = "{\"status\": [\"New\", \"Active\", \"Closed\"], \"MaxItemsCount\": 5}";  // Här är det hårdkodat, vi ska hämta från en fil
             _settings = JsonConvert.DeserializeObject<Settings>(settingsFile);
+
+            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            StorageFile file = await storageFolder.GetFileAsync("settings.json");
+
+            return await FileIO.ReadTextAsync(file);
         }
-
-        //public static class JsonService
-        //{
-        //    public static void WriteToFile(string filename, OrderProduct orderProduct)
-        //    {
-        //        var json = JsonConvert.SerializeObject(orderProduct);
-
-        //        using StreamWriter writer = new StreamWriter(filename);
-        //        writer.Write(json);
-        //    }
-        //}
 
         public static async Task<IEnumerable<string>> GetStatus()
         {

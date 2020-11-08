@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
+using Newtonsoft.Json;
 using Windows.Networking.NetworkOperators;
 
 namespace ClassLibrary.Models
@@ -23,11 +24,15 @@ namespace ClassLibrary.Models
             Email = email;
             Created = created;
         }
-
+        [JsonProperty(propertyName: "id")]
         public long Id { get; set; }
+        [JsonProperty(propertyName: "firstname")]
         public string FirstName { get; set; }
+        [JsonProperty(propertyName: "lastname")]
         public string LastName { get; set; }
-        public string Email { get; set; } 
+        [JsonProperty(propertyName: "email")]
+        public string Email { get; set; }
+        [JsonProperty(propertyName: "created")]
         public DateTime Created { get; set; }
 
         public string DisplayName => $"{FirstName} {LastName}";
